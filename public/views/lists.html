@@ -1,0 +1,8 @@
+<h1>Grocery Lists</h1>
+<div class="list-container">
+  <p ng-if="lists.lists.length < 1">There are no grocery lists.</p>
+  <div ng-repeat="list in lists.lists">
+    <a href="#/list/{{ list._id }}">{{ list.created_at | date: medium }}</a> ({{ list.items.length }})
+  </div>
+  <button ng-click="lists.createList()">Create Grocery List</button>
+</div>

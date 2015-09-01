@@ -1,0 +1,11 @@
+<h1>{{ list.list.created_at | date: medium }}</h1>
+<ul>
+  <li ng-repeat="item in list.list.items">
+    <a ng-click="list.deleteItem(item._id)" title="Delete item">(x)</a>
+    {{ item.text }}
+  </li>
+</ul>
+<form>
+  <input type="text" placeholder="Add an item to this grocery list" ng-model="list.formData.text" />
+  <button type="submit" ng-click="list.addItem()">Add</button>
+</form>
