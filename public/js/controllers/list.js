@@ -6,6 +6,7 @@
 
     vm.formData = {};
 
+    // get list
     ListService.getList($routeParams.list_id)
       .then(function (res) {
         vm.list = res.data;
@@ -27,6 +28,15 @@
       ListService.deleteItem(vm.list._id, itemId)
         .then(function (res) {
           vm.list.items = res.data.items;
+        }, function (err) {
+          console.log(err);
+        });
+    };
+
+    vm.toggleItem = function (itemId, $index, done) {
+      ListService.toggle(itemId, { done: done })
+        .then(function () {
+          vm.list.items[$index].done = done;
         }, function (err) {
           console.log(err);
         });

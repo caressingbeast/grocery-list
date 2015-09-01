@@ -1,8 +1,9 @@
 <h1>{{ list.list.created_at | date: medium }}</h1>
 <ul>
-  <li ng-repeat="item in list.list.items">
+  <li ng-repeat="item in list.list.items" class="complete-{{ item.done }}">
+    <input type="checkbox" ng-change="list.toggleItem(item._id, $index, item.done)" ng-model="item.done" />
     <a ng-click="list.deleteItem(item._id)" title="Delete item">(x)</a>
-    {{ item.text }}
+    <span>{{ item.text }}</span>
   </li>
 </ul>
 <form>

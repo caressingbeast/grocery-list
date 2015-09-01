@@ -23,6 +23,10 @@
     service.deleteItem = function (listId, itemId) {
       return $http.delete('/api/list/' + listId + '/' + itemId);
     };
+
+    service.toggle = function (itemId, done) {
+      return $http.put('/api/item/' + itemId, done);
+    };
   }
 
   angular

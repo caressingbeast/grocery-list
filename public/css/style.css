@@ -1,3 +1,120 @@
-a[ng-click]{
-    cursor: pointer;
+/* RESET */
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  position: relative;
+  color: #4d5659;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 15px 0;
+  color: #000;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+p {
+  margin: 0 0 30px 0;
+}
+
+ul, ol {
+  margin: 0 0 30px 0;
+  padding: 0 0 0 30px;
+}
+
+.list-unstyled {
+  padding: 0;
+}
+
+ul li {
+  list-style: disc;
+}
+
+.list-unstyled li {
+  list-style: none;
+}
+
+a, a[ng-click] {
+  cursor: pointer;
+  color: #00b0e9;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+select,
+.form-input,
+.form-checkbox,
+.form-radio {
+  margin: 0 0 15px 0;
+  outline: 0;
+}
+
+.form-input {
+  border: 1px solid #e6eaed;
+  border-radius: 3px;
+  display: block;
+  padding: 10px;
+  width: 100%;
+}
+
+.form-inline .form-element {
+  float: left;
+  width: 50%;
+}
+
+.form-inline .form-input {
+  margin: 0;
+}
+
+.button, .button:hover {
+  color: #fff;
+}
+
+.button {
+  background: #00b0e9;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  margin: 0 auto;
+  width: 70%;
+}
+
+/* APP-SPECIFIC STYLES */
+.complete-true span {
+  color: #ccc;
+  text-decoration: line-through;
 }

@@ -75,6 +75,19 @@ module.exports = function (app) {
     );
   });
 
+  app.put('/api/item/:item_id', function (req, res) {
+    List.update({ 'items._id': req.params.item_id },
+      { $set: { 'items.$.done': req.body.done }},
+      function (err, list) {
+        if (err) {
+          res.send(err);
+        }
+
+        res.json(list);
+      }
+    );
+  });
+
   // delete an item from a list
   app.delete('/api/list/:list_id/:item_id', function (req, res) {
     List.findByIdAndUpdate(req.params.list_id, {
