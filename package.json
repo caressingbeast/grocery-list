@@ -1,0 +1,13 @@
+{
+  "name"         : "grocery-list",
+  "version"      : "0.0.1",
+  "description"  : "Grocery list app built with Node and Angular",
+  "main"         : "server.js",
+  "author"       : "Brandon Burning",
+  "dependencies" : {
+    "express": "~4.0.0",
+    "mongoose": "~3.6.13",
+    "body-parser": "~1.0.1",
+    "method-override": "~1.0.0"
+  }
+}
