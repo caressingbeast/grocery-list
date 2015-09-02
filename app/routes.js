@@ -75,6 +75,7 @@ module.exports = function (app) {
     );
   });
 
+  // toggle an item on a list
   app.put('/api/item/:item_id', function (req, res) {
     List.update({ 'items._id': req.params.item_id },
       { $set: { 'items.$.done': req.body.done }},

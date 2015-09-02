@@ -12,6 +12,10 @@
       return $http.post('/api/list');
     };
 
+    service.delete = function (listId) {
+      return $http.delete('/api/list/' + listId);
+    };
+
     service.getList = function (listId) {
       return $http.get('/api/list/' + listId);
     };

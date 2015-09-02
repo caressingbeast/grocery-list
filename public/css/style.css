@@ -1,6 +1,4 @@
-/* RESET */
-
-*, *:before, *:after {
+*, *:after, *:before {
   box-sizing: border-box;
 }
 
@@ -11,7 +9,6 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  position: relative;
   color: #4d5659;
   font-family: sans-serif;
   font-size: 16px;
@@ -19,14 +16,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 15px 0;
+  margin: 0 0 30px 0;
   color: #000;
   font-weight: 300;
   line-height: 1.25;
-}
-
-h1 {
-  font-size: 42px;
 }
 
 p {
@@ -50,7 +43,7 @@ ul li {
   list-style: none;
 }
 
-a, a[ng-click] {
+a {
   cursor: pointer;
   color: #00b0e9;
   text-decoration: none;
@@ -69,25 +62,21 @@ select,
 .form-input,
 .form-checkbox,
 .form-radio {
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
   outline: 0;
+}
+
+.form-inline {
+  margin: 0 auto 10px;
+  width: 80%;
 }
 
 .form-input {
   border: 1px solid #e6eaed;
   border-radius: 3px;
-  display: block;
+  display: inline-block;
   padding: 10px;
-  width: 100%;
-}
-
-.form-inline .form-element {
-  float: left;
-  width: 50%;
-}
-
-.form-inline .form-input {
-  margin: 0;
+  width: 70%;
 }
 
 .button, .button:hover {
@@ -104,17 +93,34 @@ select,
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
 .container {
   margin: 0 auto;
-  width: 70%;
 }
 
-/* APP-SPECIFIC STYLES */
-.complete-true span {
+@media screen and (min-width: 901px) {
+
+  .container {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 481px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+}
+
+h1 {
+  text-align: center;
+}
+
+.done-true span {
   color: #ccc;
   text-decoration: line-through;
 }
