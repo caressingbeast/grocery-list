@@ -20,15 +20,6 @@
           console.log(err);
         });
     };
-
-    vm.deleteList = function (listId) {
-      ListService.delete(listId)
-        .then(function (res) {
-          vm.lists = res.data;
-        }, function (err) {
-          console.log(err);
-        });
-    };
   }
 
   angular

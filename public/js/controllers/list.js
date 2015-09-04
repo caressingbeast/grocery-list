@@ -9,6 +9,10 @@
     // get list
     ListService.getOne($routeParams.list_id)
       .then(function (res) {
+        if (!res.data) {
+          $window.location.href = '/';
+        }
+
         vm.list = res.data;
       }, function (err) {
         console.log(err);
@@ -33,8 +37,8 @@
         });
     };
 
-    vm.deleteItem = function (itemId) {
-      ListService.deleteItem(vm.list._id, itemId)
+    vm.toggleItem = function (itemId, done) {
+      ListService.toggleItem(vm.list._id, itemId, { done: done })
         .then(function (res) {
           vm.list.items = res.data.items;
         }, function (err) {
@@ -42,8 +46,8 @@
         });
     };
 
-    vm.toggleItem = function (itemId, done) {
-      ListService.toggleItem(vm.list._id, itemId, { done: done })
+    vm.deleteItem = function (itemId) {
+      ListService.deleteItem(vm.list._id, itemId)
         .then(function (res) {
           vm.list.items = res.data.items;
         }, function (err) {
