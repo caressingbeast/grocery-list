@@ -9,6 +9,5 @@ module.exports = mongoose.model('List', {
     text: String,
     done: Boolean
   }],
-  created_at: Date,
-  updated_at: { type: Date, default: Date.now },
+  created_at: Date
 });

@@ -1,13 +1,15 @@
-<h1>{{ list.list.created_at | date: 'MM/dd/yy h:mma' }}</h1>
-<ul class="list-unstyled">
-  <li ng-repeat="item in list.list.items" class="done-{{ item.done }}">
-    <input type="checkbox" ng-change="list.toggleItem(item._id, $index, item.done)" ng-model="item.done" />
-    <a ng-click="list.deleteItem(item._id)" title="Delete item">(x)</a>
-    <span>{{ item.text }}</span>
-  </li>
-</ul>
-<form class="form-inline">
-  <input class="form-input" type="text" placeholder="Add item to list" ng-model="list.formData.text" />
-  <button class="button" type="submit" ng-click="list.addItem()">Add</button>
+<div class="list-container">
+  <h1>{{ list.list.created_at | date: 'MM/dd/yy h:mma' }}</h1>
+  <ul class="list-unstyled list-left">
+    <li ng-repeat="item in list.list.items" class="done-{{ item.done }}">
+      <input type="checkbox" ng-change="list.toggleItem(item._id, item.done)" ng-model="item.done" />
+      <a ng-click="list.deleteItem(item._id)" title="Delete item">(x)</a>
+      <span>{{ item.text }}</span>
+    </li>
+  </ul>
+  <form class="form-inline">
+    <input class="form-input" type="text" placeholder="Insert item name..." ng-model="list.formData.text" />
+    <button class="button" type="submit" ng-click="list.createItem()">Add</button>
+  </form>
   <p><a href="#/">&larr; Go back to main page</a></p>
-</form>
+</div>

@@ -4,11 +4,11 @@
   function config ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: '../views/lists.html',
-        controller: 'ListsCtrl',
-        controllerAs: 'lists'
+        templateUrl: '../views/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
       })
-      .when('/list/:list_id', {
+      .when('/lists/:list_id', {
         templateUrl: '../views/list.html',
         controller: 'ListCtrl',
         controllerAs: 'list'

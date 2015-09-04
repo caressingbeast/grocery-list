@@ -4,32 +4,32 @@
   function ListService ($http) {
     var service = this;
 
-    service.getLists = function () {
+    service.getAll = function () {
       return $http.get('/api/lists');
     };
 
     service.create = function () {
-      return $http.post('/api/list');
+      return $http.post('/api/lists');
+    };
+
+    service.getOne = function (listId) {
+      return $http.get('/api/lists/' + listId);
     };
 
     service.delete = function (listId) {
-      return $http.delete('/api/list/' + listId);
+      return $http.delete('/api/lists/' + listId);
     };
 
-    service.getList = function (listId) {
-      return $http.get('/api/list/' + listId);
-    };
-
-    service.addItem = function (listId, formData) {
-      return $http.post('/api/list/' + listId, formData);
+    service.createItem = function (listId, formData) {
+      return $http.post('/api/lists/' + listId + '/items', formData);
     };
 
     service.deleteItem = function (listId, itemId) {
-      return $http.delete('/api/list/' + listId + '/' + itemId);
+      return $http.delete('/api/lists/' + listId + '/items/' + itemId);
     };
 
-    service.toggle = function (itemId, done) {
-      return $http.put('/api/item/' + itemId, done);
+    service.toggleItem = function (listId, itemId, done) {
+      return $http.put('/api/lists/' + listId + '/items/' + itemId, done);
     };
   }
 

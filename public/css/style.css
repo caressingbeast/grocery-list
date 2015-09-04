@@ -35,6 +35,11 @@ ul, ol {
   padding: 0;
 }
 
+.list-left {
+  margin: 0 auto 30px;
+  text-align: left;
+}
+
 ul li {
   list-style: disc;
 }
@@ -62,21 +67,18 @@ select,
 .form-input,
 .form-checkbox,
 .form-radio {
-  margin: 0 0 10px 0;
   outline: 0;
 }
 
 .form-inline {
-  margin: 0 auto 10px;
-  width: 80%;
+  margin: 0 auto 15px;
 }
 
 .form-input {
   border: 1px solid #e6eaed;
   border-radius: 3px;
   display: inline-block;
-  padding: 10px;
-  width: 70%;
+  padding: 5px;
 }
 
 .button, .button:hover {
@@ -89,7 +91,7 @@ select,
   border-radius: 3px;
   cursor: pointer;
   display: inline-block;
-  padding: 10px 15px;
+  padding: 6px 10px;
   text-align: center;
 }
 
@@ -98,9 +100,12 @@ select,
 }
 
 @media screen and (min-width: 901px) {
-
   .container {
     width: 70%;
+  }
+
+  .list-left {
+    width: 40%;
   }
 }
 
@@ -108,15 +113,24 @@ select,
   .container {
     width: 85%;
   }
+
+  .list-left {
+    width: 55%;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .container {
     width: 90%;
   }
+
+  .list-left {
+    width: 70%;
+  }
 }
 
-h1 {
+.list-container {
+  padding: 50px 0;
   text-align: center;
 }
 

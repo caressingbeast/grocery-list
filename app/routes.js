@@ -17,7 +17,7 @@ module.exports = function (app) {
   });
 
   // create a list
-  app.post('/api/list', function (req, res) {
+  app.post('/api/lists', function (req, res) {
     List.create({
       completed: false,
       created_at: new Date()
@@ -31,7 +31,7 @@ module.exports = function (app) {
   });
 
   // get a single list
-  app.get('/api/list/:list_id', function (req, res) {
+  app.get('/api/lists/:list_id', function (req, res) {
     List.findById(req.params.list_id, function (err, list) {
       if (err) {
         res.send(err);
@@ -42,7 +42,7 @@ module.exports = function (app) {
   });
 
   // delete a list
-  app.delete('/api/list/:list_id', function (req, res) {
+  app.delete('/api/lists/:list_id', function (req, res) {
     List.remove({
       _id: req.params.list_id
     }, function (err) {
@@ -61,7 +61,7 @@ module.exports = function (app) {
   });
 
   // create an item on a list
-  app.post('/api/list/:list_id', function (req, res) {
+  app.post('/api/lists/:list_id/items', function (req, res) {
     List.findByIdAndUpdate(req.params.list_id, {
       $push: { items: { text: req.body.text, done: false }}},
       {  safe: true, upsert: true },
@@ -76,21 +76,27 @@ module.exports = function (app) {
   });
 
   // toggle an item on a list
-  app.put('/api/item/:item_id', function (req, res) {
+  app.put('/api/lists/:list_id/items/:item_id', function (req, res) {
     List.update({ 'items._id': req.params.item_id },
       { $set: { 'items.$.done': req.body.done }},
-      function (err, list) {
+      function (err) {
         if (err) {
           res.send(err);
         }
 
-        res.json(list);
+        List.findById(req.params.list_id, function (err, list) {
+          if (err) {
+            res.send(err);
+          }
+
+          res.json(list);
+        });
       }
     );
   });
 
   // delete an item from a list
-  app.delete('/api/list/:list_id/:item_id', function (req, res) {
+  app.delete('/api/lists/:list_id/items/:item_id', function (req, res) {
     List.findByIdAndUpdate(req.params.list_id, {
         $pull: { items: { _id: req.params.item_id }}
       },
