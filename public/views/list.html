@@ -11,5 +11,8 @@
     <input class="form-input" type="text" placeholder="Insert item name..." ng-model="list.formData.text" />
     <button class="button" type="submit" ng-click="list.createItem()">Add</button>
   </form>
-  <p><a href="#/">&larr; Go back to main page</a></p>
+  <p>
+    <a ng-click="list.deleteList()">Delete this list</a><br />
+    <a href="#/">Go back to main page</a>
+  </p>
 </div>

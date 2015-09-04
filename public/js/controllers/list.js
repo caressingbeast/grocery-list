@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  function ListCtrl ($routeParams, ListService) {
+  function ListCtrl ($routeParams, $window, ListService) {
     var vm = this;
 
     vm.formData = {};
@@ -13,6 +13,15 @@
       }, function (err) {
         console.log(err);
       });
+
+    vm.deleteList = function () {
+      ListService.delete(vm.list._id)
+        .then(function () {
+          $window.location.href = '/';
+        }, function (err) {
+          console.log(err);
+        });
+    };
 
     vm.createItem = function () {
       ListService.createItem(vm.list._id, vm.formData)
