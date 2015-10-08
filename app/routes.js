@@ -9,10 +9,10 @@ module.exports = function (app) {
   app.get('/api/lists', function (req, res) {
     List.find(function (err, data) {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
 
-      res.json(data);
+      return res.json(data);
     });
   });
 
@@ -23,10 +23,10 @@ module.exports = function (app) {
       created_at: new Date()
     }, function (err, lists) {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
 
-      res.json(lists);
+      return res.json(lists);
     });
   });
 
@@ -34,10 +34,10 @@ module.exports = function (app) {
   app.get('/api/lists/:list_id', function (req, res) {
     List.findById(req.params.list_id, function (err, list) {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
 
-      res.json(list);
+      return res.json(list);
     });
   });
 
@@ -47,15 +47,15 @@ module.exports = function (app) {
       _id: req.params.list_id
     }, function (err) {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
 
       List.find(function (err, lists) {
         if (err) {
-          res.send(err);
+          return res.send(err);
         }
 
-        res.json(lists);
+        return res.json(lists);
       });
     });
   });
@@ -67,10 +67,10 @@ module.exports = function (app) {
       {  safe: true, upsert: true },
       function (err, list) {
         if (err) {
-          res.send(err);
+          return res.send(err);
         }
 
-        res.json(list);
+        return res.json(list);
       }
     );
   });
@@ -81,15 +81,15 @@ module.exports = function (app) {
       { $set: { 'items.$.done': req.body.done }},
       function (err) {
         if (err) {
-          res.send(err);
+          return res.send(err);
         }
 
         List.findById(req.params.list_id, function (err, list) {
           if (err) {
-            res.send(err);
+            return res.send(err);
           }
 
-          res.json(list);
+          return res.json(list);
         });
       }
     );
@@ -102,10 +102,10 @@ module.exports = function (app) {
       },
       function (err, list) {
         if (err) {
-          res.send(err);
+          return res.send(err);
         }
 
-        res.json(list);
+        return res.json(list);
       }
     );
   });

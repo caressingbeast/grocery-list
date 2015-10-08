@@ -1,5 +1,5 @@
 // config/database.js
 
 module.exports = {
-  url : 'mongodb://sandbox:sandbox@ds035643.mongolab.com:35643/sandbox'
+  url : 'mongodb://list:list@ds037467.mongolab.com:37467/list'
 };
