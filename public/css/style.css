@@ -139,3 +139,49 @@ select,
   color: #ccc;
   text-decoration: line-through;
 }
+
+.todoList {
+  border-bottom: 1px solid #ddd;
+  margin: 0 auto 30px;
+  width: 300px;
+}
+
+.todo {
+  border: solid #ddd;
+  border-width: 1px 1px 0 1px;
+  display: table;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.todo span {
+  display: table-cell;
+  padding: 0 10px;
+  vertical-align: middle;
+}
+
+.todo span.small {
+  padding: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.todo .toggleTodo {
+  color: #e80044;
+}
+
+.done span {
+  color: #ddd;
+  text-decoration: line-through;
+}
+
+.done .toggleTodo {
+  color: #43bb6e;
+}
+
+.footer {
+  position: absolute; bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
