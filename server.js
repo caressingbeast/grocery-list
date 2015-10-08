@@ -13,7 +13,6 @@ var port           = process.env.PORT || 3000;
 // CONFIGURATION
 // =============================================
 mongoose.connect(database.url);
-console.log(mongoose.connection.readyState);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
