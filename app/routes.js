@@ -65,12 +65,18 @@ module.exports = function (app) {
     List.findByIdAndUpdate(req.params.list_id, {
       $push: { items: { text: req.body.text, done: false }}},
       {  safe: true, upsert: true },
-      function (err, list) {
+      function (err) {
         if (err) {
           return res.send(err);
         }
 
-        return res.json(list);
+        List.findById(req.params.list_id, function (err, list) {
+          if (err) {
+            return res.send(err);
+          }
+
+          return res.json(list);
+        });
       }
     );
   });
@@ -100,12 +106,18 @@ module.exports = function (app) {
     List.findByIdAndUpdate(req.params.list_id, {
         $pull: { items: { _id: req.params.item_id }}
       },
-      function (err, list) {
+      function (err) {
         if (err) {
           return res.send(err);
         }
 
-        return res.json(list);
+        List.findById(req.params.list_id, function (err, list) {
+          if (err) {
+            return res.send(err);
+          }
+          
+          return res.json(list);
+        });
       }
     );
   });
