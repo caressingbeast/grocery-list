@@ -13,6 +13,11 @@
         controller: 'ListCtrl',
         controllerAs: 'list'
       })
+      .when('/meals', {
+        templateUrl: '../views/meal.html',
+        controller: 'MealCtrl',
+        controllerAs: 'meal'
+      })
       .otherwise({
         redirectTo: '/'
       });

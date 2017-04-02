@@ -1,0 +1,21 @@
+<div class="list-container">
+  <h1>Meals</h1>
+  <p ng-if="!meal.meals.length">There are no meals.</p>
+  <ul class="list-unstyled list-left">
+    <li ng-repeat="item in meal.meals">
+      <a ng-click="meal.editMeal(item._id)" title="Edit meal">(edit)</a>
+      <a ng-click="meal.deleteMeal(item._id)" title="Delete meal">(x)</a>
+      <span>{{ item.name }}</span>
+    </li>
+  </ul>
+  <div class="meal-container" ng-if="meal.addMealVisible">
+    <form>
+      <input class="form-input" type="text" placeholder="Insert meal name..." ng-model="meal.mealData.name" /><br />
+      <textarea class="form-input" placeholder="Insert ingredients (one ingredient per line)..." ng-model="meal.mealData.ingredients"></textarea>
+      <button class="button" type="submit" ng-click="meal.saveMeal()">Add</button>
+      <button class="button" type="submit" ng-click="meal.cancelMeal()">Cancel</button>
+    </form>
+  </div>
+  <button class="button" ng-click="meal.addMeal()">Add Meal</button>
+  <button class="button" ng-click="meal.createPlan()" ng-if="meal.meals.length">Create Meal Plan</button>
+</div>
