@@ -190,3 +190,28 @@ select,
   width: 100%;
   text-align: center;
 }
+
+.meal-form {
+  border: 1px solid #ddd;
+  margin: 15px 0; padding: 15px;
+}
+
+.meal-form input {
+  width: 100%;
+}
+
+.meal-form textarea {
+  display: inline-block;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.plan-container {
+  border: 1px solid #ddd;
+  margin: 15px 0; padding: 15px;
+}
+
+.plan-container a {
+  display: inline-block;
+  margin: 0 0 0 10px;
+}

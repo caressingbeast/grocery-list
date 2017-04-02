@@ -82,51 +82,6 @@ module.exports = function (app) {
     );
   });
 
-  // get all meals
-  app.get('/api/meals', function (req, res) {
-    Meal.find(function (err, data) {
-      if (err) {
-        return res.send(err);
-      }
-
-      return res.json(data);
-    });
-  });
-
-  // create a meal
-  app.post('/api/meals', function (req, res) {
-    Meal.create({
-      name: req.body.name,
-      ingredients: req.body.ingredients,
-      created_at: new Date()
-    }, function (err, meals) {
-      if (err) {
-        return res.send(err);
-      }
-
-      return res.json(meals);
-    });
-  });
-
-  // delete a list
-  app.delete('/api/meals/:meal_id', function (req, res) {
-    Meal.remove({
-      _id: req.params.meal_id
-    }, function (err) {
-      if (err) {
-        return res.send(err);
-      }
-
-      Meal.find(function (err, meals) {
-        if (err) {
-          return res.send(err);
-        }
-
-        return res.json(meals);
-      });
-    });
-  });
-
   // toggle an item on a list
   app.put('/api/lists/:list_id/items/:item_id', function (req, res) {
     List.update({ 'items._id': req.params.item_id },
@@ -163,6 +118,72 @@ module.exports = function (app) {
           }
 
           return res.json(list);
+        });
+      }
+    );
+  });
+
+  // get all meals
+  app.get('/api/meals', function (req, res) {
+    Meal.find(function (err, data) {
+      if (err) {
+        return res.send(err);
+      }
+
+      return res.json(data);
+    });
+  });
+
+  // create a meal
+  app.post('/api/meals', function (req, res) {
+    Meal.create({
+      name: req.body.name,
+      ingredients: req.body.ingredients,
+      created_at: new Date()
+    }, function (err, meals) {
+      if (err) {
+        return res.send(err);
+      }
+
+      return res.json(meals);
+    });
+  });
+
+  // delete a meal
+  app.delete('/api/meals/:meal_id', function (req, res) {
+    Meal.remove({
+      _id: req.params.meal_id
+    }, function (err) {
+      if (err) {
+        return res.send(err);
+      }
+
+      Meal.find(function (err, meals) {
+        if (err) {
+          return res.send(err);
+        }
+
+        return res.json(meals);
+      });
+    });
+  });
+
+  // update a meal
+  app.put('/api/meals/:meal_id', function (req, res) {
+    Meal.findByIdAndUpdate(req.params.meal_id, {
+        $set: { name: req.body.name, ingredients: req.body.ingredients }
+      },
+      function (err) {
+        if (err) {
+          return res.send(err);
+        }
+
+        Meal.findById(req.params.meal_id, function (err, meal) {
+          if (err) {
+            return res.send(err);
+          }
+
+          return res.json(meal);
         });
       }
     );

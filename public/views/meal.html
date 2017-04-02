@@ -9,13 +9,30 @@
     </li>
   </ul>
   <div class="meal-container" ng-if="meal.addMealVisible">
-    <form>
+    <form class="meal-form">
+      <input type="hidden" ng-model="meal.meadData.id" />
       <input class="form-input" type="text" placeholder="Insert meal name..." ng-model="meal.mealData.name" /><br />
-      <textarea class="form-input" placeholder="Insert ingredients (one ingredient per line)..." ng-model="meal.mealData.ingredients"></textarea>
-      <button class="button" type="submit" ng-click="meal.saveMeal()">Add</button>
+      <textarea class="form-input" placeholder="Insert ingredients (one ingredient per line)..." ng-model="meal.mealData.ingredients"></textarea><br />
+      <button class="button" type="submit" ng-click="meal.createMeal()" ng-if="!meal.mealData.id">Add</button>
+      <button class="button" type="submit" ng-click="meal.saveMeal()" ng-if="meal.mealData.id">Save</button>
       <button class="button" type="submit" ng-click="meal.cancelMeal()">Cancel</button>
     </form>
   </div>
+  <div class="plan-container" ng-if="meal.createPlanVisible">
+    <ul class="list-unstyled">
+      <li ng-repeat="item in meal.planMeals">
+        <input type="checkbox" ng-model="item.selected" checked />
+        {{ item.name }}
+      </li>
+    </ul>
+    <select ng-model="meal.importList">
+      <option value="">Select a list</option>
+      <option ng-repeat="item in meal.lists" value="{{item._id}}">{{ item.created_at | date: 'MM/dd/yy h:mma' }}</option>
+    </select>
+    <a ng-click="meal.importMeals()">Import Selected</a>
+    <a ng-click="meal.cancelPlan()">Cancel</a>
+  </div>
   <button class="button" ng-click="meal.addMeal()">Add Meal</button>
-  <button class="button" ng-click="meal.createPlan()" ng-if="meal.meals.length">Create Meal Plan</button>
+  <button class="button" ng-click="meal.createPlan()" ng-if="meal.meals.length">Create Meal Plan</button><br /><br />
+  <a href="#/">Go back to main page</a>
 </div>
