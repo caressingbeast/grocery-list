@@ -9,7 +9,6 @@
     // get list
     ListService.getOne($routeParams.list_id)
       .then(function (res) {
-        console.log(res);
         if (!res.data) {
           $location.url('/');
         }
