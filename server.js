@@ -7,12 +7,11 @@ var express        = require('express');
 var app            = express();
 var methodOverride = require('method-override');
 var mongoose       = require('mongoose');
-var database       = require('./config/database');
 var port           = process.env.PORT || 3000;
 
 // CONFIGURATION
 // =============================================
-mongoose.connect(database.url);
+mongoose.connect(process.env.DATABASE_URL);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
