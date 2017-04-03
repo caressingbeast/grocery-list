@@ -15,7 +15,6 @@
     vm.createList = function () {
       ListService.create()
         .then(function (res) {
-          console.log(res.data);
           vm.lists.push(res.data);
         }, function (err) {
           console.log(err);
