@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  function ListCtrl ($routeParams, $window, ListService) {
+  function ListCtrl ($routeParams, $location, ListService) {
     var vm = this;
 
     vm.formData = {};
@@ -9,8 +9,9 @@
     // get list
     ListService.getOne($routeParams.list_id)
       .then(function (res) {
+        console.log(res);
         if (!res.data) {
-          $window.location.href = '/';
+          $location.url('/');
         }
 
         vm.list = res.data;
@@ -21,7 +22,8 @@
     vm.deleteList = function () {
       ListService.delete(vm.list._id)
         .then(function () {
-          $window.location.href = '/';
+          console.log('hit');
+          $location.url('/');
         }, function (err) {
           console.log(err);
         });
@@ -30,6 +32,7 @@
     vm.createItem = function () {
       ListService.createItem(vm.list._id, vm.formData)
         .then(function (res) {
+          console.log(res);
           vm.list.items = res.data.items;
           vm.formData = {};
         }, function (err) {

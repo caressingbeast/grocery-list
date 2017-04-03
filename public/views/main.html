@@ -3,9 +3,9 @@
   <p ng-if="main.lists.length < 1">There are no grocery lists.</p>
   <ul class="list-unstyled list-center">
     <li ng-repeat="list in main.lists">
-      <a href="#/lists/{{ list._id }}">{{ list.created_at | date: 'MM/dd/yy h:mma' }}</a> ({{ list.items.length }} items)
+      <a href="#!/lists/{{ list._id }}">{{ list.created_at | date: 'MM/dd/yy h:mma' }}</a> ({{ list.items.length }} items)
     </li>
   </ul>
   <button class="button" ng-click="main.createList()">Create Grocery List</button>
-  <a href="#/meals" class="margin">Manage meals and meal plans</a>
+  <a href="#!/meals" class="margin">Manage meals and meal plans</a>
 </div>
