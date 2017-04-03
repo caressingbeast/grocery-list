@@ -32,7 +32,6 @@
     vm.createItem = function () {
       ListService.createItem(vm.list._id, vm.formData)
         .then(function (res) {
-          console.log(res);
           vm.list.items = res.data.items;
           vm.formData = {};
         }, function (err) {
