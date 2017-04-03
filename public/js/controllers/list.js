@@ -22,7 +22,6 @@
     vm.deleteList = function () {
       ListService.delete(vm.list._id)
         .then(function () {
-          console.log('hit');
           $location.url('/');
         }, function (err) {
           console.log(err);
