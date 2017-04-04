@@ -1,38 +1,45 @@
-<div class="list-container">
-  <h1>Meals</h1>
-  <p ng-if="!meal.meals.length">There are no meals.</p>
-  <ul class="list-unstyled list-left">
-    <li ng-repeat="item in meal.meals">
-      <a ng-click="meal.editMeal(item._id)" title="Edit meal">(edit)</a>
-      <a ng-click="meal.deleteMeal(item._id)" title="Delete meal">(x)</a>
-      <span>{{ item.name }}</span>
+<h1>Meals</h1>
+<p ng-if="!meal.meals.length">There are no meals.</p>
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="item in meal.meals">
+    <span class="glyphicon glyphicon-edit" ng-click="meal.editMeal(item._id)" title="Edit meal"></span>
+    <span class="glyphicon glyphicon-remove-circle pull-right" ng-click="meal.deleteMeal(item._id)" title="Delete meal"></span>
+    <span>{{ item.name }}</span>
+  </li>
+</ul>
+<form class="item-container" ng-if="meal.addMealVisible">
+  <input type="hidden" ng-model="meal.meadData.id" />
+  <div class="form-group">
+    <input class="form-control" type="text" placeholder="Insert meal name..." ng-model="meal.mealData.name" />
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" rows="6" placeholder="Insert ingredients (one ingredient per line)..." ng-model="meal.mealData.ingredients"></textarea>
+  </div>
+  <button class="btn btn-success" type="submit" ng-click="meal.createMeal()" ng-if="!meal.mealData.id">Add</button>
+  <button class="btn btn-success" type="submit" ng-click="meal.saveMeal()" ng-if="meal.mealData.id">Save</button>
+  <button class="btn btn-danger" type="submit" ng-click="meal.cancelMeal()">Cancel</button>
+</form>
+<div class="item-container" ng-if="meal.createPlanVisible">
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="item in meal.planMeals">
+      <input type="checkbox" ng-model="item.selected" checked />
+      {{ item.name }}
     </li>
   </ul>
-  <div class="meal-container" ng-if="meal.addMealVisible">
-    <form class="meal-form">
-      <input type="hidden" ng-model="meal.meadData.id" />
-      <input class="form-input" type="text" placeholder="Insert meal name..." ng-model="meal.mealData.name" /><br />
-      <textarea class="form-input" placeholder="Insert ingredients (one ingredient per line)..." ng-model="meal.mealData.ingredients"></textarea><br />
-      <button class="button" type="submit" ng-click="meal.createMeal()" ng-if="!meal.mealData.id">Add</button>
-      <button class="button" type="submit" ng-click="meal.saveMeal()" ng-if="meal.mealData.id">Save</button>
-      <button class="button" type="submit" ng-click="meal.cancelMeal()">Cancel</button>
-    </form>
-  </div>
-  <div class="plan-container" ng-if="meal.createPlanVisible">
-    <ul class="list-unstyled">
-      <li ng-repeat="item in meal.planMeals">
-        <input type="checkbox" ng-model="item.selected" checked />
-        {{ item.name }}
-      </li>
-    </ul>
-    <select ng-model="meal.importList">
-      <option value="">Select a list</option>
-      <option ng-repeat="item in meal.lists" value="{{item._id}}">{{ item.created_at | date: 'MM/dd/yy h:mma' }}</option>
-    </select>
-    <a ng-click="meal.importMeals()">Import Selected</a>
-    <a ng-click="meal.cancelPlan()">Cancel</a>
-  </div>
-  <button class="button" ng-click="meal.addMeal()">Add Meal</button>
-  <button class="button" ng-click="meal.createPlan()" ng-if="meal.meals.length">Create Meal Plan</button><br /><br />
+  <form class="form-inline">
+    <div class="form-group">
+      <select class="form-control" ng-model="meal.importList">
+        <option value="">Select a list</option>
+        <option ng-repeat="item in meal.lists" value="{{item._id}}">{{ item.created_at | date: 'MM/dd/yy h:mma' }}</option>
+      </select>
+    </div>
+    <button class="btn btn-warning" ng-click="meal.importMeals()">Import Selected</button>
+  </form>
+  <button class="btn btn-sm btn-default" ng-click="meal.createPlan()">Refresh</button>
+  <button class="btn btn-sm btn-danger" ng-click="meal.cancelPlan()">Cancel</button>
+</div>
+<button class="btn btn-primary" ng-click="meal.addMeal()">Add Meal</button>
+<button class="btn btn-info" ng-click="meal.createPlan()" ng-if="meal.meals.length">Create Meal Plan</button>
+<div class="link-group">
   <a href="#!/">Go back to main page</a>
 </div>

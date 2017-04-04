@@ -1,18 +1,18 @@
-<div class="list-container">
-  <h1>{{ list.list.created_at | date: 'MM/dd/yy h:mma' }}</h1>
-  <ul class="list-unstyled list-left">
-    <li ng-repeat="item in list.list.items" class="done-{{ item.done }}">
-      <input type="checkbox" ng-change="list.toggleItem(item._id, item.done)" ng-model="item.done" />
-      <a ng-click="list.deleteItem(item._id)" title="Delete item">(x)</a>
-      <span>{{ item.text }}</span>
-    </li>
-  </ul>
-  <form class="form-inline">
-    <input class="form-input" type="text" placeholder="Insert item name..." ng-model="list.formData.text" />
-    <button class="button" type="submit" ng-click="list.createItem()">Add</button>
-  </form>
-  <p>
-    <a ng-click="list.deleteList()">Delete this list</a><br />
-    <a href="#!/">Go back to main page</a>
-  </p>
-</div>
+<h1>{{ list.list.created_at | date: 'MM/dd/yy h:mma' }}</h1>
+<ul class="list-group">
+  <li ng-repeat="item in list.list.items" class="done-{{ item.done }} list-group-item">
+    <input type="checkbox" ng-change="list.toggleItem(item._id, item.done)" ng-model="item.done" />
+    {{ item.text }}
+    <span class="glyphicon glyphicon-remove-circle pull-right" ng-click="list.deleteItem(item._id)" title="Delete item"></span>
+  </li>
+</ul>
+<form class="form-inline">
+  <div class="form-group">
+    <input class="form-control" type="text" placeholder="Insert item name..." ng-model="list.formData.text" />
+  </div>
+  <button class="btn btn-success" type="submit" ng-click="list.createItem()">Add</button>
+</form>
+<button class="btn btn-danger" ng-click="list.deleteList()">Delete this list</button>
+<p class="link-group">
+  <a href="#!/">Go back to main page</a>
+</p>
