@@ -2,6 +2,10 @@
   margin: 0 0 0 10px;
 }
 
+.list-group-item {
+  font-size: 16px;
+}
+
 .list-group-item:hover {
   background: #efefef;
 }
@@ -40,4 +44,8 @@ input[type="checkbox"] {
 
 .form-inline {
   margin: 0 0 20px 0;
+}
+
+.inner-container {
+  padding: 20px;
 }
