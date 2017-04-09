@@ -4,6 +4,7 @@
   <li class="list-group-item" ng-repeat="item in meal.meals">
     <span class="glyphicon glyphicon-edit" ng-click="meal.editMeal(item._id)" title="Edit meal"></span>
     <span class="glyphicon glyphicon-remove-circle pull-right" ng-click="meal.deleteMeal(item._id)" title="Delete meal"></span>
+    <span class="glyphicon glyphicon-ok-circle pull-right" ng-click="meal.addMealToPlan(item._id)" title="Add meal"></span>
     <span>{{ item.name }}</span>
   </li>
 </ul>

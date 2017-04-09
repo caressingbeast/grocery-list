@@ -66,6 +66,32 @@
       vm.createPlanVisible = true;
     };
 
+    vm.addMealToPlan = function (mealId) {
+      var meal = vm.meals.filter(function (m) {
+        return m._id === mealId;
+      })[0];
+
+      if (!mealId || !meal) {
+        return false;
+      }
+
+      meal.selected = true;
+
+      if (Array.isArray(vm.planMeals)) {
+        var isDuplicate = vm.planMeals.filter(function (m) {
+          return m._id === mealId;
+        }).length;
+
+        if (!isDuplicate) {
+          vm.planMeals.push(meal);
+        }
+      } else {
+        vm.planMeals = [meal];
+      }
+
+      vm.createPlanVisible = true;
+    };
+
     vm.importMeals = function () {
       var selected = vm.planMeals.filter(function (m) {
         return m.selected;
@@ -75,11 +101,15 @@
         return;
       }
 
+      var ingredients = [];
       var promises = [];
 
       selected.forEach(function (m) {
         m.ingredients.forEach(function (i) {
-          promises.push(ListService.createItem(vm.importList, { text: i }));
+          if (ingredients.indexOf(i) === -1) {
+            ingredients.push(i);
+            promises.push(ListService.createItem(vm.importList, { text: i }));
+          }
         });
       });
 
