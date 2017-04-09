@@ -46,6 +46,80 @@
       return data;
     }
 
+    vm.addMeal = function () {
+      vm.addMealVisible = true;
+    };
+
+    vm.cancelMeal = function () {
+      vm.addMealVisible = false;
+
+      Object.keys(vm.mealData).forEach(function (k) {
+        vm.mealData[k] = '';
+      });
+    };
+
+    vm.createMeal = function () {
+      var mealData = formatData();
+
+      if (!mealData.name || !mealData.ingredients.length) {
+        return;
+      }
+
+      MealService.createMeal(mealData)
+        .then(function (res) {
+          vm.meals.push(res.data);
+          vm.cancelMeal();
+        }, function (err) {
+          console.log(err);
+        });
+    };
+
+    vm.editMeal = function (mealId) {
+      var meal = findMeal(mealId);
+
+      if (!meal) {
+        return;
+      }
+
+      vm.mealData.id = mealId;
+      vm.mealData.ingredients = meal.ingredients.join('\n');
+      vm.mealData.name = meal.name;
+      vm.addMealVisible = true;
+    };
+
+    vm.saveMeal = function () {
+      var mealData = formatData();
+
+      if (!mealData.name || !mealData.ingredients.length) {
+        return;
+      }
+
+      MealService.saveMeal(mealData)
+        .then(function (res) {
+          var meal = vm.meals.filter(function (m) {
+            if (m._id === mealData.id) {
+              return m;
+            }
+          })[0];
+
+          meal.name = res.data.name;
+          meal.ingredients = res.data.ingredients;
+
+          vm.cancelMeal();
+        }, function (err) {
+          console.log(err);
+        });
+    };
+
+    vm.deleteMeal = function (mealId) {
+      MealService.delete(mealId)
+        .then(function (res) {
+          vm.meals = res.data;
+        }, function (err) {
+          console.log(err);
+        });
+    };
+
     vm.createPlan = function () {
       var mealList = vm.meals.slice(0);
       var meals = [];
@@ -72,7 +146,7 @@
       })[0];
 
       if (!mealId || !meal) {
-        return false;
+        return;
       }
 
       meal.selected = true;
@@ -106,8 +180,10 @@
 
       selected.forEach(function (m) {
         m.ingredients.forEach(function (i) {
-          if (ingredients.indexOf(i) === -1) {
-            ingredients.push(i);
+          var ingredient = i.toLowerCase().trim();
+
+          if (ingredients.indexOf(ingredient) === -1) {
+            ingredients.push(ingredient);
             promises.push(ListService.createItem(vm.importList, { text: i }));
           }
         });
@@ -124,80 +200,6 @@
     vm.cancelPlan = function () {
       vm.createPlanVisible = false;
       vm.planMeals = [];
-    };
-
-    vm.addMeal = function () {
-      vm.addMealVisible = true;
-    };
-
-    vm.cancelMeal = function () {
-      vm.addMealVisible = false;
-
-      Object.keys(vm.mealData).forEach(function (k) {
-        vm.mealData[k] = '';
-      });
-    };
-
-    vm.createMeal = function () {
-      var mealData = formatData();
-
-      if (!mealData.name || !mealData.ingredients.length) {
-        return;
-      }
-
-      MealService.createMeal(mealData)
-        .then(function (res) {
-          vm.meals.push(res.data);
-          vm.cancelMeal();
-        }, function (err) {
-          console.log(err);
-        });
-    };
-
-    vm.deleteMeal = function (mealId) {
-      MealService.delete(mealId)
-        .then(function (res) {
-          vm.meals = res.data;
-        }, function (err) {
-          console.log(err);
-        });
-    };
-
-    vm.editMeal = function (mealId) {
-      var meal = findMeal(mealId);
-
-      if (!meal) {
-        return;
-      }
-
-      vm.mealData.id = mealId;
-      vm.mealData.name = meal.name;
-      vm.mealData.ingredients = meal.ingredients.join('\n');
-      vm.addMealVisible = true;
-    };
-
-    vm.saveMeal = function () {
-      var mealData = formatData();
-
-      if (!mealData.name || !mealData.ingredients.length) {
-        return;
-      }
-
-      MealService.saveMeal(mealData)
-        .then(function (res) {
-          var meal = vm.meals.filter(function (m) {
-            if (m._id === mealData.id) {
-              return m;
-            }
-          })[0];
-
-          meal.name = res.data.name;
-          meal.ingredients = res.data.ingredients;
-
-          vm.cancelMeal();
-        }, function (err) {
-          console.log(err);
-        });
     };
   }
 
