@@ -38,8 +38,9 @@ describe('MealCtrl', function () {
     };
 
     MealService = {
-      getAll: generateDfd($q, mealData)
-    }
+      getAll: generateDfd($q, mealData),
+      createMeal: generateDfd($q, mealData)
+    };
 
     spyOn(ListService, 'getAll').and.callThrough();
     spyOn(MealService, 'getAll').and.callThrough();
@@ -75,7 +76,7 @@ describe('MealCtrl', function () {
   describe('.cancelMeal()', function () {
     it('should set addMealVisible to false and clear form fields', function () {
       $controller.mealData = {
-        name: 'Test mea',
+        name: 'Test meal',
         ingredients: 'Test ingredient'
       };
 
@@ -83,6 +84,51 @@ describe('MealCtrl', function () {
       expect($controller.addMealVisible).toEqual(false);
       Object.keys($controller.mealData).forEach(function (k) {
         expect($controller.mealData[k]).toEqual('');
+      });
+    });
+  });
+
+  describe('.createMeal()', function () {
+    it('should do nothing if required fields empty', function () {
+      spyOn(MealService, 'createMeal');
+
+      $controller.createMeal();
+      expect(MealService.createMeal).not.toHaveBeenCalled();
+    });
+
+    it('should call MealService.createMeal if required fields not empty', function () {
+      spyOn(MealService, 'createMeal').and.callThrough();
+
+      $controller.mealData = {
+        name: 'Test meal',
+        ingredients: 'Test ingredient'
+      };
+
+      $controller.createMeal();
+      expect(MealService.createMeal).toHaveBeenCalled();
+      expect($controller.meals.length).toEqual(1);
+    });
+  });
+
+  describe('.editMeal()', function () {
+    it('should do nothing if not a valid meal', function () {
+      $controller.editMeal();
+      expect($controller.addMealVisible).toEqual(false);
+    });
+
+    it('should show meal form with data if valid meal', function () {
+      var meal = {
+        id: window.Helpers.generateId(),
+        ingredients: '',
+        name: window.Helpers.generateId()
+      };
+
+      $controller.meals.push(meal);
+      $controller.editMeal(meal.id);
+
+      expect($controller.addMealVisible).toEqual(true);
+      Object.keys($controller.mealData).forEach(function (k) {
+        expect($controller.mealData[k]).toEqual(meal[k]);
       });
     });
   });

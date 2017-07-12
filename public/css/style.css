@@ -49,3 +49,7 @@ input[type="checkbox"] {
 .inner-container {
   padding: 20px;
 }
+
+.glyphicon-ok-circle {
+  margin: 0 10px 0 0;
+}

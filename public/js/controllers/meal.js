@@ -46,56 +46,6 @@
       return data;
     }
 
-    vm.createPlan = function () {
-      var mealList = vm.meals.slice(0);
-      var meals = [];
-
-      if (!mealList.length) {
-        return;
-      }
-
-      for (var i = 0; i < 3; i++) {
-        var index = Math.floor(Math.random() * mealList.length);
-        var meal = mealList[index];
-        meal.selected = true;
-        meals.push(meal);
-        mealList.splice(index, 1);
-      }
-
-      vm.planMeals = meals;
-      vm.createPlanVisible = true;
-    };
-
-    vm.importMeals = function () {
-      var selected = vm.planMeals.filter(function (m) {
-        return m.selected;
-      });
-
-      if (!selected.length || !vm.importList) {
-        return;
-      }
-
-      var promises = [];
-
-      selected.forEach(function (m) {
-        m.ingredients.forEach(function (i) {
-          promises.push(ListService.createItem(vm.importList, { text: i }));
-        });
-      });
-
-      $q.all(promises)
-        .then(function () {
-          vm.cancelPlan();
-        }, function (err) {
-          console.log(err);
-        });
-    };
-
-    vm.cancelPlan = function () {
-      vm.createPlanVisible = false;
-      vm.planMeals = [];
-    };
-
     vm.addMeal = function () {
       vm.addMealVisible = true;
     };
@@ -124,15 +74,6 @@
         });
     };
 
-    vm.deleteMeal = function (mealId) {
-      MealService.delete(mealId)
-        .then(function (res) {
-          vm.meals = res.data;
-        }, function (err) {
-          console.log(err);
-        });
-    };
-
     vm.editMeal = function (mealId) {
       var meal = findMeal(mealId);
 
@@ -141,8 +82,8 @@
       }
 
       vm.mealData.id = mealId;
-      vm.mealData.name = meal.name;
       vm.mealData.ingredients = meal.ingredients.join('\n');
+      vm.mealData.name = meal.name;
       vm.addMealVisible = true;
     };
 
@@ -168,6 +109,97 @@
         }, function (err) {
           console.log(err);
         });
+    };
+
+    vm.deleteMeal = function (mealId) {
+      MealService.delete(mealId)
+        .then(function (res) {
+          vm.meals = res.data;
+        }, function (err) {
+          console.log(err);
+        });
+    };
+
+    vm.createPlan = function () {
+      var mealList = vm.meals.slice(0);
+      var meals = [];
+
+      if (!mealList.length) {
+        return;
+      }
+
+      for (var i = 0; i < 3; i++) {
+        var index = Math.floor(Math.random() * mealList.length);
+        var meal = mealList[index];
+        meal.selected = true;
+        meals.push(meal);
+        mealList.splice(index, 1);
+      }
+
+      vm.planMeals = meals;
+      vm.createPlanVisible = true;
+    };
+
+    vm.addMealToPlan = function (mealId) {
+      var meal = vm.meals.filter(function (m) {
+        return m._id === mealId;
+      })[0];
+
+      if (!mealId || !meal) {
+        return;
+      }
+
+      meal.selected = true;
+
+      if (Array.isArray(vm.planMeals)) {
+        var isDuplicate = vm.planMeals.filter(function (m) {
+          return m._id === mealId;
+        }).length;
+
+        if (!isDuplicate) {
+          vm.planMeals.push(meal);
+        }
+      } else {
+        vm.planMeals = [meal];
+      }
+
+      vm.createPlanVisible = true;
+    };
+
+    vm.importMeals = function () {
+      var selected = vm.planMeals.filter(function (m) {
+        return m.selected;
+      });
+
+      if (!selected.length || !vm.importList) {
+        return;
+      }
+
+      var ingredients = [];
+      var promises = [];
+
+      selected.forEach(function (m) {
+        m.ingredients.forEach(function (i) {
+          var ingredient = i.toLowerCase().trim();
+
+          if (ingredients.indexOf(ingredient) === -1) {
+            ingredients.push(ingredient);
+            promises.push(ListService.createItem(vm.importList, { text: i }));
+          }
+        });
+      });
+
+      $q.all(promises)
+        .then(function () {
+          vm.cancelPlan();
+        }, function (err) {
+          console.log(err);
+        });
+    };
+
+    vm.cancelPlan = function () {
+      vm.createPlanVisible = false;
+      vm.planMeals = [];
     };
   }
 
